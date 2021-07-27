@@ -84,10 +84,10 @@
         }
         if (id == "userName") {
             xmlhttp.open("GET", "http://47.98.192.167:8800/smsXxs?phone=", true); //获取验证码
-            xmlhttp.send(phone=document.getElementById("userName").value);
+            xmlhttp.send();
         } else if (id == "code") {
             xmlhttp.open("GET", "http://47.98.192.167:8800/users/load?pin=&tel=", true); //登录接口
-            xmlhttp.send(pin=document.getElementById("code").value);
+            xmlhttp.send();
         } else if (id == "cue") {
             xmlhttp.open("GET", "http://47.98.192.167:8800/is_repeat?nick_name=", true); //判断是否存在该用户
             xmlhttp.send();
