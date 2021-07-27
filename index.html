@@ -11,7 +11,7 @@
 <style>
     #loginDiv {
         width: 20%;
-        height: 300px;
+        height: 500px;
         background-color: rgba(75, 81, 95, 0.3);
         box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
         border-radius: 5px;
@@ -37,74 +37,81 @@
         height: 28px;
         font-size: 10px;
     }
+    h1 {
+        
+        font-family:'Times New Roman', Times, serif;
+    
+    }
     input {
-            
-            border-radius: 5px;
-            border-style: hidden;
-          
-        }
 
+        border-radius: 5px;
+        border-style: hidden;
+
+    }
 </style>
 
 <body>
 
     <div id="loginDiv">
-        <div class="box" style="text-align: center;font-size: 5px;color:black;font-family: '微软雅黑';">
-            <p>提示信息:</p>
-            <p id="cue" "> </p>
-        </div>
         <form action="" id=" form">
-                <h1 style="text-align: center;color: aliceblue;">登录</h1>
-                <p>用户名:<input id="userName" type="email" onkeydown="myFunction(event)"><button type="button"
-                        onclick="loadXMLDoc('userName')">获取验证码</button></p>
-
-                <p>验证码:<input id="code" type="text"><input type="reset" value="重置"></p>
-
+                <h1 style="text-align: center;color:white;">登录</h1>
+                <p>用户名: <input id="userName" type="text" onkeydown="myFunction(event)">
+                <p>电话: &nbsp;&nbsp;&nbsp;<input id="tel" type="text"><button type="button"onclick="loadXMLDoc1()">获取验证码</button></p>
+                <p>验证码: <input id="pin" type="text"></p>
+                <p>密码: &nbsp;&nbsp;&nbsp;<input id="psw" type="password"><input type="reset" value="重置"></p>
                 <div style="text-align: center;margin-top: 30px;">
-                    <input type="submit" class="button" onclick="loadXMLDoc( 'code')" value="登陆"> <a href="regist.html"
+                    <input type="submit" class="button" onclick="loadXMLDoc2()" value="登录"> <a href="regist.html"
                         target="_self"><button class="button" type="button">注册</button></a>
+                </div>
+                <div class="box" style="text-align: center;font-size: 5px;color:black;font-family: '微软雅黑';">
+                    <p>提示信息:</p>
+                    <p id="cue" "> </p>
                 </div>
                 </form>
 
 </body>
 <script>
-    function loadXMLDoc(id) {
-        var xmlhttp;
-        if (window.XMLHttpRequest) {
-            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById('cue').innerHTML = xmlhttp.responseText;
-            }
-        }
-        if (id == "userName") {
-            xmlhttp.open("GET", "http://47.98.192.167:8800/smsXxs?phone=", true); //获取验证码
-            xmlhttp.send();
-        } else if (id == "code") {
-            xmlhttp.open("GET", "http://47.98.192.167:8800/users/load?pin=&tel=", true); //登录接口
-            xmlhttp.send();
-        } else if (id == "cue") {
-            xmlhttp.open("GET", "http://47.98.192.167:8800/is_repeat?nick_name=", true); //判断是否存在该用户
-            xmlhttp.send();
-
-        } else if (id == "register") {
-            xmlhttp.open("GET", "http://47.98.192.167:8800/register?age=&gender=&name=&pin=&psw=&tel=", true); //注册
-            xmlhttp.send();
-            // http://47.98.192.167:8800/register?age=12&gender=false&name=213123&pin=21213&psw=21312&tel=32131
-        } else {
-            return "你在做什么啊大哥输错啦"
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            document.getElementById("cue").innerHTML = xmlhttp.responseText;
         }
     }
-
+    //获取验证码
+    function loadXMLDoc1() {
+        var str=document.getElementById("tel").value;
+        xmlhttp.open("GET", "http://47.98.192.167:8800/smsXxs?phone="+str, true);
+        xmlhttp.send();
+    }
+    //键盘事件
     function myFunction(event) {
         var x = event.key;
-        document.getElementById("cue").innerHTML = loadXMLDoc('cue');
+        document.getElementById("cue").innerHTML = loadXMLDoc3();
+    }
+
+    //登录接口
+    function loadXMLDoc2() {
+        var str1=document.getElementById("pin").value;
+        var str2=document.getElementById("tel").value;
+        var str3=document.getElementById("psw").value;
+        xmlhttp.open("GET", "http://47.98.192.167:8800/users/load?pin="+str1+"&tel="+str2+"&psw="+str3, true);
+        xmlhttp.send();
+    }
+    //判断该用户是否存在
+    function loadXMLDoc3() {
+        var str=document.getElementById("userName").value;
+        xmlhttp.open("GET", "http://47.98.192.167:8800/is_repeat?nick_name="+str, true);
+        xmlhttp.send();
+
     }
 </script>
 
+</html>
 </html>
