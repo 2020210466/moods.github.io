@@ -88,7 +88,7 @@
     //获取验证码
     function loadXMLDoc1() {
         var str=document.getElementById("mail").value;
-        xmlhttp.open("GET", "https://47.98.192.167:8800/smsXxs?phone="+str, true);
+        xmlhttp.open("GET", "http://47.98.192.167:8800/smsXxs?phone="+str, true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send();
     }
@@ -103,14 +103,14 @@
         var str1=document.getElementById("pin").value;
         var str2=document.getElementById("tel").value;
         var str3=document.getElementById("psw").value;
-        xmlhttp.open("GET", "https://47.98.192.167:8800/users/load?pin="+str1+"&tel="+str2+"&psw="+str3, true);
+        xmlhttp.open("GET", "http://47.98.192.167:8800/users/load?pin="+str1+"&tel="+str2+"&psw="+str3, true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send();
     }
     //判断该用户是否存在
     function loadXMLDoc3() {
         var str=document.getElementById("userName").value;
-        xmlhttp.open("GET", "https://47.98.192.167:8800/is_repeat?nick_name="+str, true);
+        xmlhttp.open("GET", "http://47.98.192.167:8800/is_repeat?nick_name="+str, true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send();
 
